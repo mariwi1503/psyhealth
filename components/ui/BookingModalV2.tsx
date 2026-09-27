@@ -68,6 +68,8 @@ export function BookingModalV2({ service, mode, setMode, onClose, initialStep = 
         if (initialStep === 'details') {
           setPatientName(userDetails.name || '')
           setPhoneNumber(userDetails.phoneNumber || '')
+        } else if (initialStep.startsWith('history')) {
+          setCurrentStep('history')
         }
       }
     }
@@ -85,6 +87,7 @@ export function BookingModalV2({ service, mode, setMode, onClose, initialStep = 
     localStorage.setItem('psyhealth-users-db', JSON.stringify(usersDb))
     sessionStorage.setItem('psyhealth-session', JSON.stringify({ phoneNumber: userData.phoneNumber }))
     setCurrentUser(userData)
+    window.dispatchEvent(new Event('psyhealth-session-updated'))
   }
 
   const findUserInDb = (phone: string) => {
@@ -170,6 +173,7 @@ export function BookingModalV2({ service, mode, setMode, onClose, initialStep = 
   const handleHistoryPinSubmit = () => {
     if (currentUser?.pin === loginPin) {
       sessionStorage.setItem('psyhealth-session', JSON.stringify({ phoneNumber: currentUser.phoneNumber }))
+      window.dispatchEvent(new Event('psyhealth-session-updated'))
       setCurrentStep('history')
     } else {
       alert('Incorrect PIN')
@@ -295,6 +299,7 @@ export function BookingModalV2({ service, mode, setMode, onClose, initialStep = 
                 <button 
                   onClick={() => {
                     sessionStorage.removeItem('psyhealth-session')
+                    window.dispatchEvent(new Event('psyhealth-session-updated'))
                     setCurrentUser(null)
                     setPatientName('')
                     setPhoneNumber('')
@@ -336,7 +341,7 @@ export function BookingModalV2({ service, mode, setMode, onClose, initialStep = 
         {currentStep === 'otp' && (
           <div className="mt-7 space-y-5">
             <p className="text-sm leading-6 text-[#788579]">Kode OTP demo telah dikirim ke <strong>{phoneNumber}</strong>. Masukkan angka sembarang untuk lanjut.</p>
-            <input value={otpCode} onChange={e => setOtpCode(e.target.value)} inputMode="numeric" placeholder="Masukkan kode OTP" className="w-full rounded-2xl border border-[#dbe3d5] bg-white p-3.5 text-sm tracking-[.5em] text-center font-bold" />
+            <input maxLength={6} value={otpCode} onChange={e => setOtpCode(e.target.value)} inputMode="numeric" placeholder="••••••" className="w-full rounded-2xl border border-[#dbe3d5] bg-white p-3.5 text-center tracking-[1em] text-lg font-bold text-[#465848]" />
             <button onClick={handleValidateOtp} className="w-full rounded-full bg-[#52634a] px-5 py-3.5 text-sm font-semibold text-white">Validasi OTP</button>
           </div>
         )}
@@ -401,7 +406,7 @@ export function BookingModalV2({ service, mode, setMode, onClose, initialStep = 
         {currentStep === 'history-otp' && (
           <div className="mt-7 space-y-5">
             <p className="text-sm leading-6 text-[#788579]">Kode OTP demo telah dikirim ke <strong>{phoneNumber}</strong>.</p>
-            <input value={otpCode} onChange={e => setOtpCode(e.target.value)} inputMode="numeric" placeholder="Masukkan kode OTP" className="w-full rounded-2xl border border-[#dbe3d5] bg-white p-3.5 text-sm tracking-[.5em] text-center font-bold" />
+            <input maxLength={6} value={otpCode} onChange={e => setOtpCode(e.target.value)} inputMode="numeric" placeholder="••••••" className="w-full rounded-2xl border border-[#dbe3d5] bg-white p-3.5 text-center tracking-[1em] text-lg font-bold text-[#465848]" />
             <button onClick={handleHistoryOtpSubmit} className="w-full rounded-full bg-[#52634a] px-5 py-3.5 text-sm font-semibold text-white">Validasi OTP</button>
           </div>
         )}
@@ -416,6 +421,7 @@ export function BookingModalV2({ service, mode, setMode, onClose, initialStep = 
               <button 
                 onClick={() => {
                   sessionStorage.removeItem('psyhealth-session')
+                  window.dispatchEvent(new Event('psyhealth-session-updated'))
                   window.location.reload()
                 }}
                 className="text-xs font-semibold text-[#a66f60] transition hover:text-red-700"

@@ -10,13 +10,21 @@ export function Navigation({ setBookingOpen }: { setBookingOpen: (open: boolean,
   const [user, setUser] = useState<{ name: string; phoneNumber: string; pin?: string } | null>(null)
 
   useEffect(() => {
-    const activeSession = JSON.parse(sessionStorage.getItem('psyhealth-session') || 'null')
-    if (activeSession) {
-      // Fetch full user details from "DB"
-      const usersDb = JSON.parse(localStorage.getItem('psyhealth-users-db') || '[]')
-      const userDetails = usersDb.find((u: any) => u.phoneNumber === activeSession.phoneNumber)
-      if (userDetails) setUser(userDetails)
+    const checkSession = () => {
+      const activeSession = JSON.parse(sessionStorage.getItem('psyhealth-session') || 'null')
+      if (activeSession) {
+        // Fetch full user details from "DB"
+        const usersDb = JSON.parse(localStorage.getItem('psyhealth-users-db') || '[]')
+        const userDetails = usersDb.find((u: any) => u.phoneNumber === activeSession.phoneNumber)
+        if (userDetails) setUser(userDetails)
+      } else {
+        setUser(null)
+      }
     }
+    
+    checkSession()
+    window.addEventListener('psyhealth-session-updated', checkSession)
+    return () => window.removeEventListener('psyhealth-session-updated', checkSession)
   }, [])
 
   const handleScrollTo = (id: string) => {
