@@ -12,14 +12,6 @@ export default function LoginPage() {
 
   const dummyUsers = [
     {
-      role: "Pasien",
-      identifier: "081234567890",
-      password: "password123",
-      icon: User,
-      redirect: "/dashboard",
-      color: "bg-blue-100 text-blue-700 border-blue-200 hover:bg-blue-200",
-    },
-    {
       role: "Psikolog",
       identifier: "psikolog@psyhealth.com",
       password: "password123",
@@ -94,7 +86,7 @@ export default function LoginPage() {
           <p className="text-xs font-semibold text-teal-700 uppercase tracking-wider mb-4 text-center">
             Mode Demo: Akses Cepat Login
           </p>
-          <div className="grid grid-cols-3 gap-3">
+          <div className="grid grid-cols-2 gap-3">
             {dummyUsers.map((user) => (
               <button
                 key={user.role}
