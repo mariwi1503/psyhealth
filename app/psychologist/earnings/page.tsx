@@ -10,11 +10,6 @@ const transactions = [
 export default function EarningsPage() {
   return (
     <div className="space-y-6 max-w-7xl mx-auto">
-      <div className="flex justify-end">
-        <button className="px-4 py-2 bg-indigo-600 text-white rounded-xl font-medium text-sm hover:bg-indigo-700 transition-colors shadow-sm">
-          Tarik Dana
-        </button>
-      </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div className="bg-indigo-600 rounded-2xl p-6 text-white shadow-sm flex flex-col justify-between">
@@ -29,7 +24,7 @@ export default function EarningsPage() {
             <p className="text-sm text-indigo-200">Siap untuk ditarik ke rekening Anda</p>
           </div>
         </div>
-        
+
         <div className="bg-white rounded-2xl p-6 border border-slate-100 shadow-sm flex flex-col justify-between">
           <div className="flex items-center gap-3 mb-6">
             <div className="p-2 bg-amber-100 rounded-lg">
@@ -90,10 +85,9 @@ export default function EarningsPage() {
                     </div>
                   </td>
                   <td className="px-6 py-4">
-                    <span className={`px-2.5 py-1 rounded-full text-xs font-medium ${
-                      trx.status === 'Selesai' || trx.status === 'Berhasil' ? 'bg-emerald-100 text-emerald-700' :
-                      'bg-amber-100 text-amber-700'
-                    }`}>
+                    <span className={`px-2.5 py-1 rounded-full text-xs font-medium ${trx.status === 'Selesai' || trx.status === 'Berhasil' ? 'bg-emerald-100 text-emerald-700' :
+                        'bg-amber-100 text-amber-700'
+                      }`}>
                       {trx.status}
                     </span>
                   </td>
