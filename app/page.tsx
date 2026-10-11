@@ -16,29 +16,29 @@ export default function Page() {
   const [selectedService, setSelectedService] = useState('Konseling Individu')
   const [selectedMode, setSelectedMode] = useState('Online')
 
-  return (<MaintenancePage />)
+  // return (<MaintenancePage />)
 
-  // return (
-  //   <main className="min-h-screen overflow-hidden bg-[#f8f7f2] text-[#27332b]">
-  //     <Navigation setBookingOpen={(open, step) => setBookingModalState(open ? (step || 'details') : null)} />
-  //     <HeroSection setBookingOpen={(open) => setBookingModalState(open ? 'details' : null)} />
-  //     <AboutSection />
-  //     <ServicesSection setBookingOpen={(open) => setBookingModalState(open ? 'details' : null)} setSelectedService={setSelectedService} />
-  //     <PsychologistsSection setBookingOpen={(open) => setBookingModalState(open ? 'details' : null)} />
-  //     <FaqSection />
-  //     <Footer />
+  return (
+    <main className="min-h-screen overflow-hidden bg-[#f8f7f2] text-[#27332b]">
+      <Navigation setBookingOpen={(open, step) => setBookingModalState(open ? (step || 'details') : null)} />
+      <HeroSection setBookingOpen={(open) => setBookingModalState(open ? 'details' : null)} />
+      <AboutSection />
+      <ServicesSection setBookingOpen={(open) => setBookingModalState(open ? 'details' : null)} setSelectedService={setSelectedService} />
+      <PsychologistsSection setBookingOpen={(open) => setBookingModalState(open ? 'details' : null)} />
+      <FaqSection />
+      <Footer />
       
-  //     {bookingModalState && (
-  //       <BookingModalV2 
-  //         initialStep={bookingModalState as any}
-  //         service={selectedService} 
-  //         mode={selectedMode} 
-  //         setMode={setSelectedMode} 
-  //         onClose={() => setBookingModalState(null)} 
-  //       />
-  //     )}
-  //   </main>
-  // )
+      {bookingModalState && (
+        <BookingModalV2 
+          initialStep={bookingModalState as any}
+          service={selectedService} 
+          mode={selectedMode} 
+          setMode={setSelectedMode} 
+          onClose={() => setBookingModalState(null)} 
+        />
+      )}
+    </main>
+  )
 }
 
 const MaintenancePage = () => {
